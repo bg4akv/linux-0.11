@@ -24,11 +24,11 @@ register int __res ; \
 __asm__("bt %2,%3;setb %%al":"=a" (__res):"a" (0),"r" (bitnr),"m" (*(addr))); \
 __res; })
 
-struct super_block super_block[NR_SUPER];
+struct super_block_s super_block[NR_SUPER];
 /* this is initialized in init/main.c */
 int ROOT_DEV = 0;
 
-static void lock_super(struct super_block * sb)
+static void lock_super(struct super_block_s * sb)
 {
 	cli();
 	while (sb->s_lock)
@@ -37,7 +37,7 @@ static void lock_super(struct super_block * sb)
 	sti();
 }
 
-static void free_super(struct super_block * sb)
+static void free_super(struct super_block_s * sb)
 {
 	cli();
 	sb->s_lock = 0;
@@ -45,7 +45,7 @@ static void free_super(struct super_block * sb)
 	sti();
 }
 
-static void wait_on_super(struct super_block * sb)
+static void wait_on_super(struct super_block_s * sb)
 {
 	cli();
 	while (sb->s_lock)
@@ -53,9 +53,9 @@ static void wait_on_super(struct super_block * sb)
 	sti();
 }
 
-struct super_block * get_super(int dev)
+struct super_block_s * get_super(int dev)
 {
-	struct super_block * s;
+	struct super_block_s * s;
 
 	if (!dev)
 		return NULL;
@@ -73,7 +73,7 @@ struct super_block * get_super(int dev)
 
 void put_super(int dev)
 {
-	struct super_block * sb;
+	struct super_block_s * sb;
 	/* struct m_inode * inode;*/
 	int i;
 
@@ -97,9 +97,9 @@ void put_super(int dev)
 	return;
 }
 
-static struct super_block * read_super(int dev)
+static struct super_block_s * read_super(int dev)
 {
-	struct super_block * s;
+	struct super_block_s * s;
 	struct buffer_head * bh;
 	int i,block;
 
@@ -167,7 +167,7 @@ static struct super_block * read_super(int dev)
 int sys_umount(char * dev_name)
 {
 	struct m_inode * inode;
-	struct super_block * sb;
+	struct super_block_s * sb;
 	int dev;
 
 	if (!(inode=namei(dev_name)))
@@ -200,7 +200,7 @@ int sys_umount(char * dev_name)
 int sys_mount(char * dev_name, char * dir_name, int rw_flag)
 {
 	struct m_inode * dev_i, * dir_i;
-	struct super_block * sb;
+	struct super_block_s * sb;
 	int dev;
 
 	if (!(dev_i=namei(dev_name)))
@@ -242,7 +242,7 @@ int sys_mount(char * dev_name, char * dir_name, int rw_flag)
 void mount_root(void)
 {
 	int i,free;
-	struct super_block * p;
+	struct super_block_s * p;
 	struct m_inode * mi;
 
 	if (32 != sizeof (struct d_inode))

@@ -46,7 +46,7 @@ __res;})
 
 void free_block(int dev, int block)
 {
-	struct super_block * sb;
+	struct super_block_s * sb;
 	struct buffer_head * bh;
 
 	if (!(sb = get_super(dev)))
@@ -75,7 +75,7 @@ void free_block(int dev, int block)
 int new_block(int dev)
 {
 	struct buffer_head * bh;
-	struct super_block * sb;
+	struct super_block_s * sb;
 	int i,j;
 
 	if (!(sb = get_super(dev)))
@@ -106,7 +106,7 @@ int new_block(int dev)
 
 void free_inode(struct m_inode * inode)
 {
-	struct super_block * sb;
+	struct super_block_s * sb;
 	struct buffer_head * bh;
 
 	if (!inode)
@@ -136,7 +136,7 @@ void free_inode(struct m_inode * inode)
 struct m_inode * new_inode(int dev)
 {
 	struct m_inode * inode;
-	struct super_block * sb;
+	struct super_block_s * sb;
 	struct buffer_head * bh;
 	int i,j;
 

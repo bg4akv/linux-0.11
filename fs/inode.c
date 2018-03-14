@@ -293,7 +293,7 @@ struct m_inode * iget(int dev,int nr)
 
 static void read_inode(struct m_inode * inode)
 {
-	struct super_block * sb;
+	struct super_block_s * sb;
 	struct buffer_head * bh;
 	int block;
 
@@ -313,7 +313,7 @@ static void read_inode(struct m_inode * inode)
 
 static void write_inode(struct m_inode * inode)
 {
-	struct super_block * sb;
+	struct super_block_s * sb;
 	struct buffer_head * bh;
 	int block;
 

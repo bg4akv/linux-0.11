@@ -121,7 +121,7 @@ struct file {
 	off_t f_pos;
 };
 
-struct super_block {
+struct super_block_s {
 	unsigned short s_ninodes;
 	unsigned short s_nzones;
 	unsigned short s_imap_blocks;
@@ -161,7 +161,7 @@ struct dir_entry {
 
 extern struct m_inode inode_table[NR_INODE];
 extern struct file file_table[NR_FILE];
-extern struct super_block super_block[NR_SUPER];
+extern struct super_block_s super_block[NR_SUPER];
 extern struct buffer_head * start_buffer;
 extern int nr_buffers;
 
@@ -194,7 +194,7 @@ extern void free_block(int dev, int block);
 extern struct m_inode * new_inode(int dev);
 extern void free_inode(struct m_inode * inode);
 extern int sync_dev(int dev);
-extern struct super_block * get_super(int dev);
+extern struct super_block_s * get_super(int dev);
 extern int ROOT_DEV;
 
 extern void mount_root(void);

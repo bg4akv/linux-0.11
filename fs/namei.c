@@ -95,7 +95,7 @@ static struct buffer_head * find_entry(struct m_inode ** dir,
 	int block,i;
 	struct buffer_head * bh;
 	struct dir_entry * de;
-	struct super_block * sb;
+	struct super_block_s * sb;
 
 #ifdef NO_TRUNCATE
 	if (namelen > NAME_LEN)
